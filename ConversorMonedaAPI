@@ -1,0 +1,4 @@
+public record ConversorMonedaAPI(String base_code,//result,
+                                 String target_code,
+                                 Double conversion_rate) {
+}
