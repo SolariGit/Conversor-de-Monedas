@@ -1,0 +1,77 @@
+import java.util.Scanner;
+
+public class Principal {
+    public static void main(String[] args) {
+        int opcion = 0;
+        double monto = 0;
+        double montoConvertir = 0;
+        ConversorMonedaAPI monedatc = null;
+
+        String origen = "";
+        String destino = "";
+        System.out.println("**********************************\nBIENVENIDO AL CONVERSOR DE MONEDAS");
+        String menu = """
+          **********************************
+          SELECCIONE UNA OPCIÓN DEL MENU:
+          1- CONVERTIR MONEDA
+          2- REVISAR EL CODIGO DE DIFERENTES MONEDAS
+          3- SALIR
+          **********************************""";
+
+        Scanner teclado = new Scanner(System.in);
+        while (opcion !=3) {
+            System.out.println(menu);
+            opcion = teclado.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    Scanner lectura = new Scanner(System.in);
+                    System.out.println("Escriba la Moneda origen Ejemplo USD (código de moneda):");
+                    origen = lectura.nextLine();
+                    System.out.println("Escriba la Moneda destino Ejemplo USD (código de moneda)");
+                    destino = lectura.nextLine();
+                    ConversorAPI moneda = new ConversorAPI();
+                    monedatc = moneda.consultaMoneda(origen, destino);
+                    System.out.println("Escriba el monto de la moneda que desea convertir:");
+                    try {
+                        monto = lectura.nextDouble();
+                        montoConvertir = monto * monedatc.conversion_rate();
+                        System.out.println("**********************************");
+                        System.out.println("El monto de: " + monto + " " + origen +  "\n" +"Equivale a:  " + montoConvertir + " " + destino +  "\n");
+                    } catch (RuntimeException e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Finalizando la aplicación");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("""
+                                  CODIGO DE MONEDAS: “USD”, “AED”, “AFN”, “ALL”, “AMD”, “ANG”, “AOA”, “ARS”, “AUD”, “AWG”,“AZN”, “BAM”, “BBD”,
+                                  “BDT”, “BGN”, “BHD”, “BIF”, “BMD”, “BMD”, “BND”, “BOB”, “BRL”, “BSD”,BTN”, “BWP”, “BYN”,“BZD”, “CAD”, “CDF”,"
+                                  “CHF”, “CLP”, “CNY”, “COP”, “CRC”, “CUP”, “CVE”, “CZK”, “DJF”, “DKK”, “DOP”, “DZD”, “EGP”, “ERN”, “ETB”,“EUR”,"
+                                  “FJD”, “FKP”, “FOK”, “GBP”,“GEL”, “GGP”, “GHS”, “GIP”, “GMD”, “GNF”, “GTQ”, “GYD”, “HKD”, “HNL”, “HRK”, “HTG”,
+                                  “HUF”, “IDR”, “ILS”, “IMP”, “INR”, “IQD”, “IRR”, “ISK”, “JEP”, “JMD”, “JOD”, “JPY”, “KES”, “KGS”, “KHR”, “KID”,
+                                  “KMF, “KRW”, “KWD”, “KYD”, “KZT”, “LAK”, “LBP”, “LKR”, “LRD”, “LSL”, “LYD”, “MAD”, “MDL”, “MGA”, “MKD”, “MMK”,
+                                  “MNT”, “MOP”, “MRU”, MUR”, “MVR”, “MWK”, “MXN”, “MYR”, “MZN”, “NAD”, “NGN”, “NIO”, “NOK”, “NPR”, “NZD”, “OMR”,
+                                  “PAB”, “PEN”, “PGK”, “PHP”, “PKR”, “PLN”, “PYG”, “QAR”, “RON”, “RSD”, “RUB”, “RWF”, “SAR”, “SBD”, “SCR”, “SDG”,
+                                  “SEK”, “SGD”,“SHP”, “SLE”, “SLL”, “SOS”, “SRD”, “SSP”, “STN”, “SYP”, “SZL”, “THB”, “TJS”, “TMT”, “TND”, “TOP”,
+                                  “TRY”, “TTD”, “TVD”, “TWD”, “TZS”, “UAH”, “UGX”, “UYU”, “UZS”, “VES”, “VND”, “VUV”,“WST”, “XAF”, “XCD”, “XCG”,
+                                  “XDR”, “XOF”, “XPF”, “YER”, “ZAR”, “ZMW”, “ZWL”)""");
+
+                    System.out.println("Finalizando la revisión");
+
+                    break;
+
+                   case 3:
+                    System.out.println("Gracias por usar el conversor de moneda");
+                       boolean b = false;
+                       System.out.println("Proceso finalizado");
+                       break;
+                    default:
+                    System.out.println("Opción no valida");
+                    System.out.println("\n");
+                       break;
+                }
+           }
+        }
+    }
